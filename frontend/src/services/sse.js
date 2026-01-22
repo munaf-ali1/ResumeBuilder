@@ -8,7 +8,7 @@ export const startAIStream = (
   const params = new URLSearchParams(resumeData).toString();
 
   const eventSource = new EventSource(
-    `http://localhost:8000/api/ai/stream?${params}`
+    `https://resumebuilder-backend-ko8w.onrender.com/api/ai/stream?${params}`
   );
 
   eventSource.addEventListener('ai', (event) => {
