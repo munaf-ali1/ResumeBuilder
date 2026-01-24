@@ -174,30 +174,27 @@ export default ResumeBuilder;
 
       
 const styles = {
-  /* PAGE – NO SCROLL */
+  /* PAGE – normal auto scroll */
   page: {
-    height: "100vh",
+    minHeight: "100vh",
     background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-start",
     padding: "16px",
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-    overflow: "hidden", // 🔥 main page scroll band
+    overflowY: "auto", // ✅ page naturally scroll kare
   },
 
   /* CONTAINER */
   container: {
     width: "100%",
     maxWidth: "1200px",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
   },
 
-  /* CARD – CENTERED & FIXED */
+  /* MAIN CARD */
   card: {
-    flex: 1,
+    width: "100%",
     background: "rgba(255, 255, 255, 0.95)",
     backdropFilter: "blur(20px)",
     borderRadius: "22px",
@@ -206,62 +203,59 @@ const styles = {
     gridTemplateColumns: "1fr 1fr",
     overflow: "hidden",
     border: "1px solid rgba(255, 255, 255, 0.2)",
-    minHeight: 0, // 🔥 IMPORTANT
   },
 
-  /* LEFT PANEL (SCROLLABLE) */
+  /* LEFT – NO SCROLL */
   left: {
     padding: "24px",
+    borderRight: "1px solid rgba(0, 0, 0, 0.08)",
     display: "flex",
     flexDirection: "column",
     gap: "16px",
     background: "rgba(255, 255, 255, 0.5)",
-    borderRight: "1px solid rgba(0,0,0,0.08)",
-    overflowY: "auto",
-    minHeight: 0,
+    overflow: "visible", // ❌ left scroll removed
   },
 
-  /* RIGHT PANEL (SCROLLABLE) */
+  /* RIGHT – RESUME + PAYMENT */
   right: {
     padding: "24px",
     display: "flex",
     flexDirection: "column",
     gap: "16px",
     background: "rgba(255, 255, 255, 0.3)",
-    overflow: "hidden",
-    minHeight: 0,
   },
 
   heading: {
+    color: "#1a202c",
     fontSize: "18px",
     fontWeight: "600",
-    color: "#1a202c",
     margin: 0,
   },
 
   /* BUTTONS */
   primaryBtn: {
-    marginTop: "auto", // 🔥 button niche chipka rahe
+    marginTop: "16px",
     background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    color: "#fff",
+    color: "white",
     border: "none",
     padding: "14px",
     borderRadius: "14px",
-    fontSize: "15px",
     fontWeight: "600",
     cursor: "pointer",
+    fontSize: "15px",
   },
 
   secondaryBtn: {
-    marginTop: "12px",
+    marginTop: "16px", // ✅ resume ke niche
+    alignSelf: "center",
     background: "#1a202c",
-    color: "#fff",
+    color: "white",
     border: "none",
-    padding: "14px",
+    padding: "14px 24px",
     borderRadius: "14px",
+    cursor: "pointer",
     fontSize: "15px",
     fontWeight: "600",
-    cursor: "pointer",
   },
 
   disabled: {
@@ -271,10 +265,10 @@ const styles = {
 
   /* ATS BOX */
   atsContainer: {
-    background: "#fff",
+    background: "white",
     borderRadius: "14px",
     padding: "16px",
-    border: "1px solid rgba(0,0,0,0.08)",
+    border: "1px solid rgba(0, 0, 0, 0.08)",
   },
 
   atsLabel: {
@@ -288,15 +282,15 @@ const styles = {
     color: "#667eea",
   },
 
-  /* OUTPUT – ONLY THIS SCROLLS */
+  /* RESUME PREVIEW */
   output: {
-    flex: 1,
-    background: "#fff",
+    minHeight: "380px",     // ✅ resume ke liye space
+    maxHeight: "520px",
+    background: "white",
     borderRadius: "14px",
     padding: "16px",
-    border: "1px solid rgba(0,0,0,0.08)",
-    overflowY: "auto",
-    minHeight: 0,
+    border: "1px solid rgba(0, 0, 0, 0.08)",
+    overflowY: "auto",      // ✅ sirf resume scroll kare
   },
 
   text: {
@@ -324,6 +318,7 @@ const styles = {
     },
   },
 };
+
 
 
 
