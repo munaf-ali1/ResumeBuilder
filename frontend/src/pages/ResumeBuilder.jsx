@@ -183,7 +183,7 @@ const styles = {
     alignItems: "flex-start",
     padding: "12px",
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-    overflow: "hidden", 
+    overflow: "auto", 
   },
 
   /*  CONTAINER */
