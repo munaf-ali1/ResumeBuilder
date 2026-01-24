@@ -4,10 +4,6 @@ An end-to-end AI-powered Resume Builder that generates ATS-optimized resumes usi
 
 ⚡ Built as a full-stack production-grade project with modern UI, scalable backend, and real-time streaming.
 
-🌐 Live Demo
-
-Frontend: https://resumebuilder-frontend-7qw.onrender.com
-
 
 
 ✨ Features
