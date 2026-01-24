@@ -1,4 +1,3 @@
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   startStreaming,
@@ -19,9 +18,9 @@ const ResumeBuilder = () => {
 
   const [isPaid, setIsPaid] = useState(false);
 
-  /* =====================
-        AI OPTIMIZATION
-  ====================== */
+  
+       // AI OPTIMIZATION
+  
   const handleOptimize = () => {
     dispatch(startStreaming());
 
@@ -33,9 +32,9 @@ const ResumeBuilder = () => {
     );
   };
 
-  /* =====================
-        STRIPE PAYMENT
-  ====================== */
+
+      //  STRIPE PAYMENT
+
   const handlePayment = async () => {
     if (!aiText) {
       alert("Please optimize resume first");
@@ -51,11 +50,10 @@ const ResumeBuilder = () => {
     window.location.href = data.url;
   };
 
-  /* =====================
-        PDF DOWNLOAD
-  ====================== */
+ 
+       // PDF DOWNLOAD
   const downloadPDF = async () => {
-    const res = await fetch("https://resumebuilder-backend-ko8w.onrender.com/api/pdf/resume", {
+    const res = await fetch("http://localhost:8000/api/pdf/resume", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ html: resumeHTML(aiText) }),
@@ -72,48 +70,98 @@ const ResumeBuilder = () => {
 
   return (
     <div style={styles.page}>
-      <div style={styles.card}>
-        {/* LEFT */}
-        <div style={styles.left}>
-          <h2 style={styles.heading}>Resume Details</h2>
-          <ResumeForm />
-
-          <button
-            onClick={handleOptimize}
-            disabled={isStreaming}
-            style={{
-              ...styles.primaryBtn,
-              ...(isStreaming ? styles.disabled : {}),
-            }}
-          >
-            {isStreaming ? "Optimizing..." : "Optimize Resume"}
-          </button>
+      <div style={styles.container}>
+        {/* Header */}
+        <div style={styles.header}>
+          <div style={styles.logo}>
+            <div style={styles.logoIcon}>📄</div>
+            <h1 style={styles.title}>AI Resume Builder</h1>
+          </div>
+          <p style={styles.subtitle}>Create ATS-optimized resumes with AI</p>
         </div>
 
-        {/* RIGHT */}
-        <div style={styles.right}>
-          <h2 style={styles.heading}>Live AI Preview</h2>
+        {/* Main Content */}
+        <div style={styles.card}>
+          {/* LEFT PANEL */}
+          <div style={styles.left}>
+            <div style={styles.sectionHeader}>
+              <div style={styles.sectionIcon}>✏️</div>
+              <h2 style={styles.heading}>Resume Details</h2>
+            </div>
+            <ResumeForm />
 
-          <div style={styles.ats}>
-            <span>ATS Score</span>
-            <strong>{atsScore}%</strong>
+            <button
+              onClick={handleOptimize}
+              disabled={isStreaming}
+              style={{
+                ...styles.primaryBtn,
+                ...(isStreaming ? styles.disabled : {}),
+              }}
+            >
+              {isStreaming ? (
+                <span style={styles.loadingText}>
+                  <span style={styles.spinner}>⚡</span> Optimizing...
+                </span>
+              ) : (
+                <span style={styles.btnText}>
+                  <span style={styles.btnIcon}>🚀</span> Optimize Resume
+                </span>
+              )}
+            </button>
           </div>
 
-          <div style={styles.output}>
-            <pre style={styles.text}>
-              {aiText || "AI optimized resume will appear here..."}
-              {isStreaming && <span style={styles.cursor}>│</span>}
-            </pre>
+          {/* RIGHT PANEL */}
+          <div style={styles.right}>
+            <div style={styles.sectionHeader}>
+              <div style={styles.sectionIcon}>🤖</div>
+              <h2 style={styles.heading}>Live AI Preview</h2>
+            </div>
 
-            {!isPaid ? (
-              <button onClick={handlePayment} style={styles.secondaryBtn}>
-                Pay ₹499 & Download PDF
-              </button>
-            ) : (
-              <button onClick={downloadPDF} style={styles.secondaryBtn}>
-                Download Resume PDF
-              </button>
-            )}
+            <div style={styles.atsContainer}>
+              <div style={styles.atsHeader}>
+                <span style={styles.atsLabel}>ATS Compatibility Score</span>
+                <div style={styles.atsScoreWrapper}>
+                  <div style={styles.atsScore}>{atsScore}%</div>
+                  <div style={styles.atsBar}>
+                    <div 
+                      style={{
+                        ...styles.atsProgress,
+                        width: `${atsScore}%`
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style={styles.outputContainer}>
+              <div style={styles.outputHeader}>
+                <span style={styles.outputLabel}>AI-Optimized Resume</span>
+                {isStreaming && <span style={styles.streamingBadge}>Live</span>}
+              </div>
+              <div style={styles.output}>
+                <pre style={styles.text}>
+                  {aiText || "Your AI-optimized resume will appear here..."}
+                  {isStreaming && <span style={styles.cursor}>│</span>}
+                </pre>
+              </div>
+
+              {!isPaid ? (
+                <button onClick={handlePayment} style={styles.secondaryBtn}>
+                  <span style={styles.btnText}>
+                    <span style={styles.btnIcon}>💳</span> 
+                    Pay ₹499 & Download PDF
+                  </span>
+                </button>
+              ) : (
+                <button onClick={downloadPDF} style={styles.successBtn}>
+                  <span style={styles.btnText}>
+                    <span style={styles.btnIcon}>⬇️</span> 
+                    Download Resume PDF
+                  </span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -123,72 +171,97 @@ const ResumeBuilder = () => {
 
 export default ResumeBuilder;
 
-/* =====================
-          STYLES
-===================== */
 
+      
 const styles = {
+ 
   page: {
-    minHeight: "100vh",
-    background: "radial-gradient(circle at top, #020617, #000)",
+    height: "100dvh", 
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    padding: "20px",
+    alignItems: "flex-start",
+    padding: "12px",
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+    overflow: "hidden", 
   },
 
-  card: {
+  /*  CONTAINER */
+  container: {
     width: "100%",
-    maxWidth: "1100px",
-    background: "linear-gradient(180deg,#0f172a,#020617)",
-    borderRadius: "18px",
-    border: "1px solid #1e293b",
-    boxShadow: "0 40px 100px rgba(0,0,0,.9)",
+    maxWidth: "1200px",
+    height: "100%",        
+    marginTop: "12px",
+    display: "flex",
+    flexDirection: "column",
+  },
+
+  /*  CARD */
+  card: {
+    flex: 1,             
+    background: "rgba(255, 255, 255, 0.95)",
+    backdropFilter: "blur(20px)",
+    borderRadius: "22px",
+    boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     overflow: "hidden",
+    border: "1px solid rgba(255, 255, 255, 0.2)",
+    minHeight: 0,         
   },
 
+  /* LEFT (FORM + BUTTON ALWAYS VISIBLE) */
   left: {
     padding: "24px",
-    borderRight: "1px solid #1e293b",
+    borderRight: "1px solid rgba(0, 0, 0, 0.08)",
     display: "flex",
     flexDirection: "column",
-    gap: "14px",
+    gap: "16px",
+    background: "rgba(255, 255, 255, 0.5)",
+    overflowY: "auto",    
+    minHeight: 0,         
   },
 
+  /* RIGHT (PREVIEW AREA) */
   right: {
     padding: "24px",
     display: "flex",
     flexDirection: "column",
-    gap: "14px",
+    gap: "16px",
+    background: "rgba(255, 255, 255, 0.3)",
+    minHeight: 0,        
   },
 
   heading: {
-    color: "#f8fafc",
+    color: "#1a202c",
     fontSize: "18px",
     fontWeight: "600",
+    margin: 0,
   },
 
+  /*  BUTTONS */
   primaryBtn: {
-    marginTop: "10px",
-    background: "linear-gradient(90deg,#22c55e,#16a34a)",
-    color: "#020617",
+    marginTop: "auto",    
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    color: "white",
     border: "none",
     padding: "14px",
-    borderRadius: "12px",
-    fontWeight: "700",
+    borderRadius: "14px",
+    fontWeight: "600",
     cursor: "pointer",
+    fontSize: "15px",
   },
 
   secondaryBtn: {
-    marginTop: "16px",
-    background: "#020617",
-    border: "1px solid #1e293b",
-    color: "#e5e7eb",
-    padding: "12px",
-    borderRadius: "10px",
+    marginTop: "12px",
+    background: "#1a202c",
+    color: "white",
+    border: "none",
+    padding: "14px",
+    borderRadius: "14px",
     cursor: "pointer",
+    fontSize: "15px",
+    fontWeight: "600",
   },
 
   disabled: {
@@ -196,49 +269,64 @@ const styles = {
     cursor: "not-allowed",
   },
 
-  ats: {
-    display: "flex",
-    justifyContent: "space-between",
-    background: "#020617",
-    border: "1px solid #1e293b",
-    padding: "12px 16px",
-    borderRadius: "12px",
-    color: "#94a3b8",
+  /*  ATS */
+  atsContainer: {
+    background: "white",
+    borderRadius: "14px",
+    padding: "16px",
+    border: "1px solid rgba(0, 0, 0, 0.08)",
   },
 
+  atsLabel: {
+    fontSize: "13px",
+    color: "#4a5568",
+  },
+
+  atsScore: {
+    fontSize: "26px",
+    fontWeight: "700",
+    color: "#667eea",
+  },
+
+  /* OUTPUT (ONLY THIS SCROLLS) */
   output: {
-    flex: 1,
-    background: "#020617",
-    border: "1px solid #1e293b",
-    borderRadius: "12px",
+    flex: 1,              
+    background: "white",
+    borderRadius: "14px",
     padding: "16px",
-    overflowY: "auto",
-    maxHeight: "360px",
+    border: "1px solid rgba(0, 0, 0, 0.08)",
+    overflowY: "auto",   
   },
 
   text: {
     fontFamily: "'JetBrains Mono', monospace",
     fontSize: "13px",
-    lineHeight: "1.7",
-    color: "#d1fae5",
+    lineHeight: "1.6",
+    color: "#2d3748",
     whiteSpace: "pre-wrap",
     margin: 0,
   },
 
   cursor: {
-    color: "#22c55e",
+    color: "#667eea",
     fontWeight: "700",
   },
 
-  /* 📱 MOBILE */
+  /*  MOBILE */
   "@media (max-width: 768px)": {
     card: {
       gridTemplateColumns: "1fr",
     },
     left: {
       borderRight: "none",
-      borderBottom: "1px solid #1e293b",
+      borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
+      padding: "20px",
+    },
+    right: {
+      padding: "20px",
     },
   },
 };
+
+
 

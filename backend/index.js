@@ -27,7 +27,7 @@ async function startServer() {
 
   app.use(express.json());
   app.use(cors({
-      origin: "https://resumebuilder-frontend-7qrw.onrender.com"
+      origin: "http://localhost:5173"
   }));
 
   const PORT = process.env.PORT || 3000;
