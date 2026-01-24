@@ -174,31 +174,30 @@ export default ResumeBuilder;
 
       
 const styles = {
- 
+  /* PAGE – NO SCROLL */
   page: {
-    height: "100dvh", 
+    height: "100vh",
     background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-start",
-    padding: "12px",
+    alignItems: "center",
+    padding: "16px",
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-    overflow: "auto", 
+    overflow: "hidden", // 🔥 main page scroll band
   },
 
-  /*  CONTAINER */
+  /* CONTAINER */
   container: {
     width: "100%",
     maxWidth: "1200px",
-    height: "100%",        
-    marginTop: "12px",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
   },
 
-  /*  CARD */
+  /* CARD – CENTERED & FIXED */
   card: {
-    flex: 1,             
+    flex: 1,
     background: "rgba(255, 255, 255, 0.95)",
     backdropFilter: "blur(20px)",
     borderRadius: "22px",
@@ -207,61 +206,62 @@ const styles = {
     gridTemplateColumns: "1fr 1fr",
     overflow: "hidden",
     border: "1px solid rgba(255, 255, 255, 0.2)",
-    minHeight: 0,         
+    minHeight: 0, // 🔥 IMPORTANT
   },
 
-  /* LEFT (FORM + BUTTON ALWAYS VISIBLE) */
+  /* LEFT PANEL (SCROLLABLE) */
   left: {
     padding: "24px",
-    borderRight: "1px solid rgba(0, 0, 0, 0.08)",
     display: "flex",
     flexDirection: "column",
     gap: "16px",
     background: "rgba(255, 255, 255, 0.5)",
-    overflowY: "auto",    
-    minHeight: 0,         
+    borderRight: "1px solid rgba(0,0,0,0.08)",
+    overflowY: "auto",
+    minHeight: 0,
   },
 
-  /* RIGHT (PREVIEW AREA) */
+  /* RIGHT PANEL (SCROLLABLE) */
   right: {
     padding: "24px",
     display: "flex",
     flexDirection: "column",
     gap: "16px",
     background: "rgba(255, 255, 255, 0.3)",
-    minHeight: 0,        
+    overflow: "hidden",
+    minHeight: 0,
   },
 
   heading: {
-    color: "#1a202c",
     fontSize: "18px",
     fontWeight: "600",
+    color: "#1a202c",
     margin: 0,
   },
 
-  /*  BUTTONS */
+  /* BUTTONS */
   primaryBtn: {
-    marginTop: "auto",    
+    marginTop: "auto", // 🔥 button niche chipka rahe
     background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    color: "white",
+    color: "#fff",
     border: "none",
     padding: "14px",
     borderRadius: "14px",
+    fontSize: "15px",
     fontWeight: "600",
     cursor: "pointer",
-    fontSize: "15px",
   },
 
   secondaryBtn: {
     marginTop: "12px",
     background: "#1a202c",
-    color: "white",
+    color: "#fff",
     border: "none",
     padding: "14px",
     borderRadius: "14px",
-    cursor: "pointer",
     fontSize: "15px",
     fontWeight: "600",
+    cursor: "pointer",
   },
 
   disabled: {
@@ -269,12 +269,12 @@ const styles = {
     cursor: "not-allowed",
   },
 
-  /*  ATS */
+  /* ATS BOX */
   atsContainer: {
-    background: "white",
+    background: "#fff",
     borderRadius: "14px",
     padding: "16px",
-    border: "1px solid rgba(0, 0, 0, 0.08)",
+    border: "1px solid rgba(0,0,0,0.08)",
   },
 
   atsLabel: {
@@ -288,14 +288,15 @@ const styles = {
     color: "#667eea",
   },
 
-  /* OUTPUT (ONLY THIS SCROLLS) */
+  /* OUTPUT – ONLY THIS SCROLLS */
   output: {
-    flex: 1,              
-    background: "white",
+    flex: 1,
+    background: "#fff",
     borderRadius: "14px",
     padding: "16px",
-    border: "1px solid rgba(0, 0, 0, 0.08)",
-    overflowY: "auto",   
+    border: "1px solid rgba(0,0,0,0.08)",
+    overflowY: "auto",
+    minHeight: 0,
   },
 
   text: {
@@ -312,18 +313,14 @@ const styles = {
     fontWeight: "700",
   },
 
-  /*  MOBILE */
+  /* MOBILE */
   "@media (max-width: 768px)": {
     card: {
       gridTemplateColumns: "1fr",
     },
     left: {
       borderRight: "none",
-      borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
-      padding: "20px",
-    },
-    right: {
-      padding: "20px",
+      borderBottom: "1px solid rgba(0,0,0,0.08)",
     },
   },
 };
